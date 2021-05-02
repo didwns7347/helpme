@@ -48,7 +48,8 @@
                     <div class="card my-4">
                         <h5 class="card-header">Leave a Comment:</h5>
                         <div class="card-body">
-                            <form>
+                            <form method="post" action="${pageContext.request.contextPath }/board/reple">
+                            	<input type="hidden" id="parent_board" name="parent_board" value="${boardVo.no }">
                                 <div class="form-group"><textarea class="form-control" rows="3"></textarea></div>
                                 <button class="btn btn-primary" type="submit">Submit</button>
                             </form>

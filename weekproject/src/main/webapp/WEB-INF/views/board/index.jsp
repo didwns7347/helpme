@@ -63,7 +63,7 @@
 								<div class="card-footer text-muted">
 									등록일: ${vo.reg_date } <a href="#">지원자 보기</a> 
 									<a class="form-row float-right"
-										href="${pageContext.request.contextPath }/board/delete?no=${vo.no}">
+										href="javascript:delchk('${pageContext.request.contextPath }/board/delete?no=${vo.no}')">
 										글삭제</a>
 								</div>
 							</c:otherwise>
@@ -117,7 +117,17 @@
 		src="${pageContext.request.contextPath }/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath }/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+	<script>
+		function delchk(url){
+			if(confirm("정말 삭제하시겠습니까?")){
+				location.href=url;
+			}
+			else{
+				location.href=location.href;
+			}	
+		}
+	</script>
+	
 </body>
 
 </html>

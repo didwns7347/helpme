@@ -26,4 +26,8 @@ public class BoardService {
 		// TODO Auto-generated method stub
 		return boardRepository.selectByNo(no);
 	}
+
+	public boolean deleteByNo(long no) {
+		return boardRepository.deleteByNo(no);
+	}
 }

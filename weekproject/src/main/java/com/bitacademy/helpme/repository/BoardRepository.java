@@ -27,5 +27,9 @@ public class BoardRepository {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("board.selectByNo", no);
 	}
+
+	public boolean deleteByNo(long no) {
+		return 1==sqlSession.delete("board.deleteByNo", no);
+	}
 	
 }

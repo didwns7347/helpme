@@ -41,6 +41,13 @@ public class BoardController {
 	@RequestMapping(value="write",method=RequestMethod.POST)
 	public String write(BoardVo vo) {
 		boardService.insert(vo);
-		return "redirect:/";
+		return "redirect:/board";
 	}
+	@Auth
+	@RequestMapping("delete")
+	public String view(long no) {
+		boardService.deleteByNo(no);
+		return "redirect:/board";
+	}
+	
 }

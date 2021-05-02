@@ -48,7 +48,11 @@
 			 insert into board values (null, #{title}, #{content}, #{writer}, #{cost}, now())
 		]]>
 	</insert>
-	
+	<delete id="deleteByNo" parameterType="long">
+		<![CDATA[
+			DELETE FROM board WHERE no=#{no}
+		]]>
+	</delete>
 	
 
 </mapper>	 	
