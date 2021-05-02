@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.bitacademy.helpme.repository.BoardRepository;
 import com.bitacademy.helpme.vo.BoardVo;
+import com.bitacademy.helpme.vo.RepleVo;
 
 @Service
 public class BoardService {
@@ -26,4 +27,19 @@ public class BoardService {
 		// TODO Auto-generated method stub
 		return boardRepository.selectByNo(no);
 	}
+
+	public boolean deleteByNo(long no) {
+		return boardRepository.deleteByNo(no);
+	}
+
+	public List<BoardVo> selectByCategory(String category) {
+		return boardRepository.findByCategory(category);
+	}
+
+	public List<BoardVo> selectByKeyword(String keyword) {
+		// TODO Auto-generated method stub
+		return boardRepository.findByKeyword(keyword);
+	}
+
+
 }

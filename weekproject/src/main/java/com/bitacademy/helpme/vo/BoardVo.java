@@ -7,6 +7,7 @@ public class BoardVo {
 	private String reg_date;
 	private String content;
 	private String title;
+	private String category;
 	public long getNo() {
 		return no;
 	}
@@ -47,6 +48,12 @@ public class BoardVo {
 	public String toString() {
 		return "BoardVo [no=" + no + ", cost=" + cost + ", writer=" + writer + ", reg_date=" + reg_date + ", content="
 				+ content + ", title=" + title + "]";
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
 	}
 	
 }

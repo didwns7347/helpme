@@ -7,6 +7,19 @@
 			select * from board order by no desc
 		]]>
 	</select>
+	
+	<select id="selectCategory" parameterType="string" resultType="boardvo">
+		<![CDATA[
+			select * from board where category=#{category} order by no desc
+		]]>
+	</select>
+	<select id="selectKeyword" parameterType="string" resultType="boardvo">
+		<![CDATA[
+			SELECT * FROM board WHERE title LIKE concat('%',#{keyword},'%') or content LIKE concat('%',#{keyword},'%') order by no desc
+		]]>
+	</select>
+	
+	
 	<select id="selectByNo" parameterType="long" resultType="boardvo">
 		<![CDATA[
 			select * from board where no=#{no}
@@ -45,10 +58,14 @@
 	
 	<insert id="insert" parameterType="boardvo">
 		<![CDATA[
-			 insert into board values (null, #{title}, #{content}, #{writer}, #{cost}, now())
+			 insert into board values (null, #{title}, #{content}, #{writer}, #{cost}, now(), #{category})
 		]]>
 	</insert>
-	
+	<delete id="deleteByNo" parameterType="long">
+		<![CDATA[
+			DELETE FROM board WHERE no=#{no}
+		]]>
+	</delete>
 	
 
-</mapper>	 	
+</mapper>	

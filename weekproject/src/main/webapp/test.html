@@ -1,0 +1,208 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>board</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    
+</head>
+
+<body style='height: 100%;width: 100%;' id='hello'>
+
+    <div class='container'>
+        <br>
+        <input type="text" value="게시글" class='form-control'>
+        <br>
+        <div class='form-control' style="height: 100px;">
+            <div>안녕하세요</div>    
+            <div>반갑습니다.</div>    
+            <div>저는 게시글 입니다.</div>    
+        </div>
+        <div id='comment_area'></div>
+    </div>
+
+</body>
+</html>
+
+<script>    
+var comments = [
+    {
+        comment_idx : "_NN5i7ztvy8bl1L4wTQoKx9THDhagNV9AIeSQOmlm",
+        idx : "admin1",
+        mother_idx : null,
+        reg_id : "admin",
+        reg_date : "2020-09-09 10:44:00",
+        comment_contents : "문의사항에 대한 답변입니다."
+    },
+    {
+        comment_idx : "_NN5i7ztvy8bl1L4wTQoKx9THDhagNV9AIeSQOmlm",
+        idx : "user1",
+        mother_idx : "admin1",
+        reg_id : "user",
+        reg_date : "2020-09-09 10:50:31",
+        comment_contents : "재문의 드립니다."
+    },
+    {
+        comment_idx : "_NN5i7ztvy8bl1L4wTQoKx9THDhagNV9AIeSQOmlm",
+        idx : "admin2",
+        mother_idx : "user1",
+        reg_id : "admin",
+        reg_date : "2020-09-09 10:55:31",
+        comment_contents : "재문의 답변입니다."
+    },
+    {
+        comment_idx : "_NN5i7ztvy8bl1L4wTQoKx9THDhagNV9AIeSQOmlm",
+        idx : "user2",
+        mother_idx : "admin2",
+        reg_id : "user",
+        reg_date : "2020-09-09 11:05:02",
+        comment_contents : "마지막 문의입니다."
+    },  
+    {
+        comment_idx : "_NN5i7ztvy8bl1L4wTQoKx9THDhagNV9AIeSQOmlm",
+        idx : "other_user",
+        mother_idx : null,
+        reg_id : "other",
+        reg_date : "2020-09-10 09:25:31",
+        comment_contents : "다른사람 문의입니다.."
+    },
+    {
+        comment_idx : "_NN5i7ztvy8bl1L4wTQoKx9THDhagNV9AIeSQOmlm",
+        idx : "other_admin",
+        mother_idx : "other_user",
+        reg_id : "admin",
+        reg_date : "2020-09-10 12:48:28",
+        comment_contents : "다른사람 댓글 입니다."
+    },
+    {
+        comment_idx : "_NN5i7ztvy8bl1L4wTQoKx9THDhagNV9AIeSQOmlm",
+        idx : "just_one",
+        mother_idx : null,
+        reg_id : "justman",
+        reg_date : "2020-09-10 13:48:28",
+        comment_contents : "한개만 있는 댓글 입니다."
+    }        
+];
+
+var conv_comment = [];
+var backup_comments = JSON.parse(JSON.stringify( comments )); 
+comments = comments.filter(function(data){
+    if(data.mother_idx == null){
+        conv_comment.push({
+            comment_idx : data.comment_idx,
+            idx : data.idx,
+            mother_idx : null,
+            reg_id : data.reg_id,
+            reg_date : data.reg_date,
+            comment_contents : data.comment_contents
+        });
+        return false;
+    }
+    return true;
+});
+
+conv_comment = conv_comment.map(function(data){
+    var array = [];
+    var working = true;
+    var mother_idx = data.idx;
+    while(working){
+        var isok = false;
+        for(var i=0;i<comments.length;i++){
+            var mini = comments[i];
+            if(mother_idx == mini.mother_idx){
+                array.push(mini);
+                mother_idx = mini.idx;
+                isok = true;
+                break;
+            }            
+        }
+        if(!isok){
+            working = false;
+        }
+    }
+    data.array = array;
+    return data;
+});
+
+//댓글 입력창 틀을 만듭니다.
+function elementForm(className, target, arg, uniqueId, option){
+    target.append(
+        $('<div>').attr('id',uniqueId != null ? uniqueId : '').addClass(className).append(
+            $('<input type="text">').addClass('form-control mini').val(arg != null ? arg.idx : ''),
+            $('<input type="text">').addClass('form-control mini').val(arg != null ? arg.reg_date : ''),
+            $('<input type="text">').addClass('form-control').val(arg != null ? arg.comment_contents : ''),
+            option
+        )
+    );    
+}
+
+//댓글 더하기 버튼을 만듭니다.
+function addButton(uniqueId, className){
+    $('#'+uniqueId).append(
+        $('<div>').addClass(className).attr('show_type','none').text('#댓글 입력하기').click(function(){
+            var type = $(this).attr('show_type');
+            if(type == 'none'){
+                $(this).attr('show_type','show');
+                $(this).next().show();
+                $(this).text('#취소');
+            } else {
+                $(this).attr('show_type','none');
+                $(this).next().hide();
+                $(this).text('#댓글 입력하기');
+            }
+        })
+    );
+}
+
+
+conv_comment.forEach(function(arg, index){
+    var uniqueId = index + "_comment_id";
+    var parent_id_for_save = arg.idx;
+
+    elementForm( 'mother_class', $('#comment_area') , arg , uniqueId );
+    if(arg.array.length > 0){  //댓글이 존재하면
+        arg.array.forEach(function(mini, idx){
+            elementForm( 'child_class', $('#'+uniqueId) , mini , null);
+            if(idx == arg.array.length-1){  //마지막이면
+                addButton(uniqueId , 'child_class');
+                parent_id_for_save = mini.idx;
+            }
+        });
+    } else {
+        addButton(uniqueId , 'child_class');          
+    }
+    elementForm( 'child_class default_hide', $('#'+uniqueId) , null , null, 
+        $('<input type="button">').addClass('btn btn-success').val('등록').click(function(){
+            console.log('부모 아이디 : ', parent_id_for_save);
+        })        
+     );
+});
+
+addButton('comment_area', 'mother_class');
+elementForm( 'mother_class default_hide', $('#comment_area') , null , null, 
+    $('<input type="button">').addClass('btn btn-success').val('등록').click(function(){
+        console.log('부모 아이디', '부모아이디는 없는 상태로 저장되어야 합니다.');
+    })        
+);
+
+</script>
+    
+<style>
+    .mini{
+        width : 30%;
+        display: inline-block;
+    }
+    .mother_class{
+        margin-top : 3%;
+        padding-left: 2%;
+        padding-right: 2%;
+    }
+    .child_class{
+        margin-top : 1%;
+        padding-left: 10%;
+        padding-right: 10%;        
+    }
+    .default_hide{
+        display: none;
+    }
+</style>

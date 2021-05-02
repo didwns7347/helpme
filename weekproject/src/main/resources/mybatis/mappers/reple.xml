@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reple">
+	<insert id="insert" parameterType="replevo">
+	<![CDATA[
+			insert into reple values(null, #{writer}, #{parent}, #{content}, 0);
+		]]>
+
+	</insert>
+	<select id="selectByParent" parameterType="long" resultType="replevo">
+	<![CDATA[
+			select * from reple where parent=#{no} order by no;
+		]]>
+	</select>
+	
+	<delete id="deleteByParent" parameterType='long'>
+		<![CDATA[
+			delete from board where parent==#{no};
+		]]>
+	</delete>
+
+
+</mapper>

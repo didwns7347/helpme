@@ -27,5 +27,18 @@ public class BoardRepository {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("board.selectByNo", no);
 	}
+
+	public boolean deleteByNo(long no) {
+		return 1==sqlSession.delete("board.deleteByNo", no);
+	}
+
+	public List<BoardVo> findByCategory(String category) {
+		return sqlSession.selectList("board.selectCategory",category);
+	}
+
+	public List<BoardVo> findByKeyword(String keyword) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("board.selectKeyword",keyword);
+	}
 	
 }

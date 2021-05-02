@@ -26,20 +26,30 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-8">
-				<form action="${pageContext.request.contextPath }/board/write" method="post">
+				<form action="${pageContext.request.contextPath }/board/write"
+					method="post">
 					<input type="hidden" name="writer" value=${authUser.name }>
 					<input type="text" name="title" class="form-control mt-4 mb-2"
-						placeholder="제목을 입력해주세요." required>
-					<input type="text" name="cost" class="form-control mt-4 mb-2"
+						placeholder="제목을 입력해주세요." required> <input type="text"
+						name="cost" class="form-control mt-4 mb-2"
 						placeholder="지불할 비용을 입력해주세요" required>
 					<div class="form-group">
 						<textarea class="form-control" rows="10" name="content"
-							placeholder="내용을 입력해주세요 날짜, 장소입력 필수" required ></textarea>
+							placeholder="내용을 입력해주세요 날짜, 장소입력 필수" required></textarea>
+						카테고리 설정<select id="category" name="category" class="form-control">
+							<option value="etc">기타</option>
+							<option value="clean">청소</option>
+							<option value="pet">애완</option>
+							<option value="move">이사</option>
+							<option value="office">사무</option>
+							<option value="farmming">농사</option>
+
+						</select>
 					</div>
 					<button type="submit" class="btn btn-secondary mb-3">제출하기</button>
 				</form>
 			</div>
-			 <!-- Sidebar widgets column-->
+			<!-- Sidebar widgets column-->
 			<div class="col-md-4">
 				<!-- Search widget-->
 				<c:import url="/WEB-INF/views/include/searchWidget.jsp" />
@@ -48,13 +58,16 @@
 
 				<!-- row -->
 			</div>
-</div>
-			<!-- container -->
+		</div>
+		<!-- container -->
 	</div>
 	<!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
-        </footer>
+	<footer class="py-5 bg-dark">
+		<div class="container">
+			<p class="m-0 text-center text-white">Copyright &copy; Your
+				Website 2021</p>
+		</div>
+	</footer>
 	<!-- Bootstrap core JavaScript -->
 	<script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
 	<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

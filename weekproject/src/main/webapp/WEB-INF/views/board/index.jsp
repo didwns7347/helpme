@@ -17,11 +17,11 @@
 <title>대신해주세요</title>
 
 <!-- Bootstrap core CSS -->
-<link href="assets/vendor/bootstrap/css/bootstrap.min.css"
+<link href="${pageContext.request.contextPath }/assets/vendor/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
 
 <!-- Custom styles for this template -->
-<link href="assets/css/blog-home.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath }/assets/css/blog-home.css" rel="stylesheet">
 
 </head>
 
@@ -56,14 +56,32 @@
 						<c:choose>
 							<c:when test="${vo.writer ne authUser.name }">
 								<div class="card-footer text-muted">
-									등록일: ${vo.reg_date } <a href="#">지원하기</a>
+									등록일: ${vo.reg_date } <a href="${pageContext.request.contextPath }/board/apply?boardno=${vo.no}&userno=${autuUser.no}">지원하기</a>
+									<c:if test="${vo.category eq 'move' }">
+									<p class="float-right">분류:이사</p>
+									</c:if>
+									<c:if test="${vo.category eq 'farmming' }">
+									<p class="float-right">분류:농사</p>
+									</c:if>
+									<c:if test="${vo.category eq 'office' }">
+									<p class="float-right">분류:사무</p>
+									</c:if>
+									<c:if test="${vo.category eq 'clean' }">
+									<p class="float-right">분류:청소</p>
+									</c:if>
+									<c:if test="${vo.category eq 'pet' }">
+									<p class="float-right">분류:애완</p>
+									</c:if>
+									<c:if test="${vo.category eq 'etc' }">
+									<p class="float-right">분류:기타</p>
+									</c:if>
 								</div>
 							</c:when>
 							<c:otherwise>
 								<div class="card-footer text-muted">
 									등록일: ${vo.reg_date } <a href="#">지원자 보기</a> 
 									<a class="form-row float-right"
-										href="${pageContext.request.contextPath }/board/delete?no=${vo.no}">
+										href="javascript:delchk('${pageContext.request.contextPath }/board/delete?no=${vo.no}')">
 										글삭제</a>
 								</div>
 							</c:otherwise>
@@ -72,13 +90,6 @@
 				</c:forEach>
 
 
-				<!-- Pagination -->
-				<ul class="pagination justify-content-center mb-4">
-					<li class="page-item"><a class="page-link" href="#">&larr;
-							Older</a></li>
-					<li class="page-item disabled"><a class="page-link" href="#">Newer
-							&rarr;</a></li>
-				</ul>
 
 			</div>
 			
@@ -117,7 +128,17 @@
 		src="${pageContext.request.contextPath }/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath }/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+	<script>
+		function delchk(url){
+			if(confirm("정말 삭제하시겠습니까?")){
+				location.href=url;
+			}
+			else{
+				location.href=location.href;
+			}	
+		}
+	</script>
+	
 </body>
 
 </html>
