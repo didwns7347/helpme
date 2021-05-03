@@ -1,0 +1,62 @@
+alter table board add worker varchar(50)  default  null;
+
+SELECT * FROM board WHERE title LIKE '%#{keyword}%' or content LIKE '%#{keyword}%';
+
+
+| board | CREATE TABLE `board` (
+  `no` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'no',
+  `title` varchar(100) NOT NULL COMMENT 'title',
+  `content` text NOT NULL COMMENT 'content',
+  `writer` varchar(20) NOT NULL COMMENT 'writer',
+  `cost` int unsigned NOT NULL COMMENT 'cost',
+  `reg_date` datetime NOT NULL COMMENT 'reg_date',
+  `category` varchar(50) NOT NULL DEFAULT '기타',
+  PRIMARY KEY (`no`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='board' |
+
+
+| user  | CREATE TABLE `user` (
+  `no` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'no',
+  `name` varchar(20) NOT NULL COMMENT 'name',
+  `password` varchar(50) NOT NULL COMMENT 'password',
+  `gender` enum('male','female') NOT NULL COMMENT 'gender',
+  `join_date` datetime NOT NULL COMMENT 'join_date',
+  `id` varchar(50) NOT NULL COMMENT 'id',
+  `point` float(5,1) NOT NULL DEFAULT '0.0' COMMENT 'point',
+  `balance` int unsigned NOT NULL DEFAULT '50000' COMMENT 'balance',
+  `email` varchar(100) NOT NULL COMMENT 'email',
+  PRIMARY KEY (`no`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='user' |
+
+| reple | CREATE TABLE `reple` (
+  `no` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'no',
+  `writer` varchar(60) NOT NULL COMMENT 'writer',
+  `parent` int unsigned NOT NULL COMMENT 'parent',
+  `content` text NOT NULL COMMENT 'content',
+  `rparent` int unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`no`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='reple' |
+
+
+
+
+-- apply
+DROP TABLE IF EXISTS `apply` RESTRICT;
+
+-- apply
+CREATE TABLE `apply` (
+	`no`      INT UNSIGNED NOT NULL COMMENT '번호', -- 번호
+	`userno`  INT UNSIGNED NOT NULL COMMENT 'userno', -- userno
+	`boardno` INT UNSIGNED NOT NULL COMMENT 'boardno' -- boardno
+)
+COMMENT 'apply';
+
+-- apply
+ALTER TABLE `apply`
+	ADD CONSTRAINT `PK_apply` -- apply 기본키
+		PRIMARY KEY (
+			`no` -- 번호
+		);
+
+ALTER TABLE `apply`
+	MODIFY COLUMN `no` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '번호';

@@ -20,4 +20,8 @@ public class UserRepository {
 		return count==1;
 	}
 
+	public UserVo findByNo(long no) {
+		return sqlSession.selectOne("user.findByNo", no);
+	}
+
 }

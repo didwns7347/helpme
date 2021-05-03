@@ -56,7 +56,7 @@
 						<c:choose>
 							<c:when test="${vo.writer ne authUser.name }">
 								<div class="card-footer text-muted">
-									등록일: ${vo.reg_date } <a href="${pageContext.request.contextPath }/board/apply?boardno=${vo.no}&userno=${autuUser.no}">지원하기</a>
+									등록일: ${vo.reg_date } <a href="javascript:applychk('${pageContext.request.contextPath }/apply/add?boardno=${vo.no}&userno=${authUser.no}')">지원하기</a>
 									<c:if test="${vo.category eq 'move' }">
 									<p class="float-right">분류:이사</p>
 									</c:if>
@@ -79,7 +79,7 @@
 							</c:when>
 							<c:otherwise>
 								<div class="card-footer text-muted">
-									등록일: ${vo.reg_date } <a href="#">지원자 보기</a> 
+									등록일: ${vo.reg_date } <a href="${pageContext.request.contextPath }/apply/view?no=${vo.no}">지원자 보기</a> 
 									<a class="form-row float-right"
 										href="javascript:delchk('${pageContext.request.contextPath }/board/delete?no=${vo.no}')">
 										글삭제</a>
@@ -131,6 +131,15 @@
 	<script>
 		function delchk(url){
 			if(confirm("정말 삭제하시겠습니까?")){
+				location.href=url;
+			}
+			else{
+				location.href=location.href;
+			}	
+		}
+		
+		function applychk(url){
+			if(confirm("정말 지원 하시겠습니까?")){
 				location.href=url;
 			}
 			else{

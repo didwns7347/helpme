@@ -8,6 +8,7 @@ public class BoardVo {
 	private String content;
 	private String title;
 	private String category;
+	private String worker;
 	public long getNo() {
 		return no;
 	}
@@ -54,6 +55,12 @@ public class BoardVo {
 	}
 	public void setCategory(String category) {
 		this.category = category;
+	}
+	public String getWorker() {
+		return worker;
+	}
+	public void setWorker(String worker) {
+		this.worker = worker;
 	}
 	
 }

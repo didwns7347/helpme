@@ -1,5 +1,8 @@
 package com.bitacademy.helpme.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +24,13 @@ public class UserService {
 		vo.setPoint(0.0f);
 		return userRepository.insert(vo);
 		
+	}
+	public List<UserVo> findByNo(List<Long> list1) {
+		List<UserVo> list = new ArrayList<UserVo>();
+		for(Long no : list1) {
+			list.add(userRepository.findByNo(no));
+		}
+		return list;
 	}
 
 }

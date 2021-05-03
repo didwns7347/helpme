@@ -19,6 +19,12 @@
 		]]>
 	</select>
 	
+	<select id="selectByWriter" parameterType="string" resultType="boardvo">
+		<![CDATA[
+			SELECT * FROM board WHERE writer=#{writer} order by no desc
+		]]>
+	</select>
+	
 	
 	<select id="selectByNo" parameterType="long" resultType="boardvo">
 		<![CDATA[

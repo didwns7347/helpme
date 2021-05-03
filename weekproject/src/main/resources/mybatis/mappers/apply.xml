@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="apply">
+	<insert id="insert" parameterType="applyvo">
+	<![CDATA[
+			insert into apply values(null, #{userno}, #{boardno} ,'ing');
+		]]>
+
+	</insert>
+	
+	<select id="findByBoardNo" parameterType="long" resultType="long">
+	<![CDATA[
+			select userno from apply where boardno=#{no};
+		]]>
+	
+	</select>
+	
+	<select id="selectByUserno" parameterType="long" resultType="applyvo">
+	<![CDATA[
+			select * from apply where userno=#{userno} order by no desc;
+		]]>
+	
+	</select>
+	
+	<update id="updateAllfail">
+	<![CDATA[
+			update apply set state='fail' where boardno=#{boardno};
+		]]>
+	</update>
+	
+	<update id="updateUsernoBoardno" parameterType='applyvo'>
+	<![CDATA[
+			update apply set state='pass' where userno=#{userno} and boardno=#{boardno};
+		]]>
+	</update>
+
+
+
+</mapper>

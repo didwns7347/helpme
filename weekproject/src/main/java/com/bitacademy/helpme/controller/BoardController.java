@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bitacademy.helpme.security.Auth;
+import com.bitacademy.helpme.service.ApplyService;
 import com.bitacademy.helpme.service.BoardService;
 import com.bitacademy.helpme.service.RepleService;
 import com.bitacademy.helpme.vo.BoardVo;
@@ -22,7 +23,7 @@ public class BoardController {
 	private BoardService boardService;
 	@Autowired 
 	private RepleService repleService;
-	
+
 	@RequestMapping("")
 	public String index(Model model) {
 		List<BoardVo> list = boardService.selectAll();
@@ -38,6 +39,12 @@ public class BoardController {
 	@RequestMapping("search")
 	public String search(String keyword,Model model) {
 		List<BoardVo> list = boardService.selectByKeyword(keyword);
+		model.addAttribute("list", list);
+		return "board/index";
+	}
+	@RequestMapping("myboard")
+	public String myboard(String writer,Model model) {
+		List<BoardVo> list = boardService.selectBywriter(writer);
 		model.addAttribute("list", list);
 		return "board/index";
 	}
@@ -80,10 +87,5 @@ public class BoardController {
 		return  "redirect:/board/view?no="+vo.getParent();
 	}
 	
-	@Auth
-	@RequestMapping("apply")
-	public String apply(long boardno, long userno) {
-		return "redirect:/board";
-	}
 	
 }

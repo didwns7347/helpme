@@ -40,5 +40,10 @@ public class BoardRepository {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("board.selectKeyword",keyword);
 	}
+
+	public List<BoardVo> findByWriter(String writer) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("board.selectByWriter",writer);
+	}
 	
 }

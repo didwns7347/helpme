@@ -41,5 +41,10 @@ public class BoardService {
 		return boardRepository.findByKeyword(keyword);
 	}
 
+	public List<BoardVo> selectBywriter(String writer) {
+		// TODO Auto-generated method stub
+		return boardRepository.findByWriter(writer);
+	}
+
 
 }

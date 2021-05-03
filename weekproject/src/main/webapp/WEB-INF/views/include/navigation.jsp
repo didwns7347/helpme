@@ -34,7 +34,9 @@
 						<li class="nav-item"><a class="nav-link"
 							href="${pageContext.request.contextPath }/board">게시판</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="${pageContext.request.contextPath }/user/myinfo">내정보</a></li>
+							href="${pageContext.request.contextPath }/board/myboard?writer=${authUser.name}">내글보기</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="${pageContext.request.contextPath }/apply/result?userno=${authUser.no}">지원결과</a></li>
 					</c:otherwise>
 				</c:choose>
 			</ul>

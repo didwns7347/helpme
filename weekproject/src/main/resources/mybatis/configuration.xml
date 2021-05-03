@@ -5,12 +5,13 @@
 		<typeAlias type="com.bitacademy.helpme.vo.UserVo" alias="uservo"/>
 		<typeAlias type="com.bitacademy.helpme.vo.BoardVo" alias="boardvo"/>
 		<typeAlias type="com.bitacademy.helpme.vo.RepleVo" alias="replevo"/>
-	
+		<typeAlias type="com.bitacademy.helpme.vo.ApplyVo" alias="applyvo"/>
     </typeAliases>	
 	<mappers>
 		<mapper resource="mybatis/mappers/user.xml" />
 		<mapper resource="mybatis/mappers/board.xml" />
 		<mapper resource="mybatis/mappers/reple.xml" />
+			<mapper resource="mybatis/mappers/apply.xml" />
 		<!--mapper resource="mybatis/mappers/guestbook.xml" /-->
 	</mappers>
 </configuration>
